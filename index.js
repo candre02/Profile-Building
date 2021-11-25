@@ -91,7 +91,7 @@ const getInfo = () => {
         })
 }
 
-// Asks if the user would like too add an inter or engineer then calls the appropriate function
+// Asks if the user would like too add an intern or engineer then calls the appropriate function
 const addTeamMem = () => {
     inquirer.prompt([
         {
