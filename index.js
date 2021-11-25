@@ -291,7 +291,7 @@ const addTeamMem = () => {
     </head>
     <body>
     <nav class="navbar bg-danger m-5">
-        <span class="mb-4 mt-4 h2 w-100 text-light text-center">Team</span>
+        <span class="mb-4 mt-4 h2 w-100 text-light text-center">Team Building</span>
     </nav>
     <div class="container">
         <div class="row">`;
