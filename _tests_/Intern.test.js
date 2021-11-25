@@ -1,5 +1,5 @@
-const Intern = require('../lib/Intern');
-const Employee = require('../lib/Employee');
+const Intern = require('../lib/Intern.js');
+const Employee = require('../lib/Employee.js');
 
 jest.mock('../lib/Employee.js');
 
