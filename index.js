@@ -280,22 +280,21 @@ const addTeamMem = () => {
 
     // this function creates the initial html before adding the employee info
     function initialHTML() {
-        const html = `<!DOCTYPE html>
+        const newTemplate = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" constent="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
     </head>
     <body>
-    <nav class="navbar bg-danger m-5">
-        <span class="mb-4 mt-4 h2 w-100 text-light text-center">Team Building</span>
+    <nav class="navbar bg-warning m-5">
+        <span class="mb-4 mt-4 h2 w-100 text-dark text-center">Team Building</span>
     </nav>
     <div class="container">
         <div class="row">`;
-        fs.writeFile("./dist/team.html", html, function (err) {
+        fs.writeFile("./dist/team.html", newTemplate, function (err) {
             if (err) {
                 console.log(err);
             }
@@ -305,14 +304,14 @@ const addTeamMem = () => {
 
     // this function determines if the employee is a manager, engineer, or intern and then adds the appropriate info to the html 
     const addEmployee = (info, role) => {
-        return new Promise(function (response, reject) {
-            let newTemplate = '';
-            const name = info.getName();
-            const id = info.getId();
-            const email = info.getEmail();
-            if (role === 'Manager') {
-                const phone = info.officeNumber();
-                newTemplate = `<div class="col-4">
+        return new Promise((response, reject) => {
+                let newTemplate = '';
+                const name = info.getName();
+                const id = info.getId();
+                const email = info.getEmail();
+                if (role === 'Manager') {
+                    const phone = info.officeNumber();
+                    newTemplate = `<div class="col-4">
                 <div class="card mx-auto mb-4 shadow" style="width: 20rem">
                     <div class="card-header bg-primary text-light">
                         <h2 class="card-title">${name}</h2>
@@ -322,14 +321,14 @@ const addTeamMem = () => {
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">ID: ${id}</li>
                             <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
-                            <li class="list-group-item">Phone Number: ${phone}</li>
+                            <li class="list-group-item">Office Number: ${phone}</li>
                         </ul>
                     </div>
                 </div>
             </div>`;
-            } else if (role === 'Engineer') {
-                const github = info.getGithub();
-                newTemplate = `<div class="col-4">
+                } else if (role === 'Engineer') {
+                    const github = info.getGithub();
+                    newTemplate = `<div class="col-4">
                 <div class="card mx-auto mb-4 shadow" style="width: 20rem">
                     <div class="card-header bg-primary text-light">
                         <h2 class="card-title">${name}</h2>
@@ -344,9 +343,9 @@ const addTeamMem = () => {
                     </div>
                 </div>
             </div>`;
-            } else if (role === 'Intern') {
-                const school = info.getSchool();
-                newTemplate = `<div class="col-4">
+                } else if (role === 'Intern') {
+                    const school = info.getSchool();
+                    newTemplate = `<div class="col-4">
                 <div class="card mx-auto mb-4 shadow" style="width: 20rem">
                     <div class="card-header bg-primary text-light">
                         <h2 class="card-title">${name}</h2>
@@ -361,31 +360,31 @@ const addTeamMem = () => {
                     </div>
                 </div>
             </div>`;
-            }
-            fs.appendFile("./dist/team.html", newTemplate, function (err) {
-                if (err) {
-                    reject(err);
-                    return;
                 }
-                resolve({
-                    ok: true,
-                    message: 'Team member added!'
-                })
+                fs.appendFile("./dist/team.html", newTemplate, function (err) {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve({
+                        ok: true,
+                        message: 'Team member added!'
+                    });
+                });
             })
-        })
     }
 
     // adds the final html after the employee cards
     // jquery and bootstrap js
     const finalHTML = () => {
-        const html = `</div>
+        const newTemplate = `</div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </body>
     </html>`;
 
-        fs.appendFile("./dist/team.html", html, function (err) {
+        fs.appendFile("./dist/team.html", newTemplate, function (err) {
             if (err) {
                 console.log(err);
             };

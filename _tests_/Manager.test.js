@@ -31,11 +31,11 @@ test('gets the email of the manager from created object through the getEmail() f
     expect(manager.getEmail()).toBe('candre02.2@gmail.com');
 })
 
-test('get the office number of the manager from created object through the getphone() function', () => {
-    const phone = 'candre02';
+test('get the office number of the manager from created object through the getOfficeNumber() function', () => {
+    const phone = '512-888-4321';
     const manager = new Manager('Crystal', '02', 'candre02.2@gmail.com', phone);
 
-    expect(manager.getPhone()).toBe('512-888-4321');
+    expect(manager.getOfficeNumbder()).toBe('512-888-4321');
 })
 
 test('should return the name of the class "Manager" from the getRole() function', () => {
