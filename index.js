@@ -81,7 +81,7 @@ const getInfo = () => {
             profileArr.push(manager);
 
             let role = "Manager";
-            addEmployee(manager, role)
+            newPro(manager, role)
             .then(result => {
                 if (response.addEmployee) {
                     addTeamMem();
@@ -190,7 +190,7 @@ const addTeamMem = () => {
                 console.log(profileArr);
 
                 let role = "Engineer";
-                addEmployee(engineer, role)
+                newPro(engineer, role)
                 .then(result => {
                     if (response.addEmployee) {
                         addTeamMem();
@@ -274,7 +274,7 @@ const addTeamMem = () => {
                 console.log(profileArr);
 
                 let role = "Intern";
-                addEmployee(intern, role)
+                newPro(intern, role)
                 .then(result => {
                     if (response.addEmployee) {
                         addTeamMem();
@@ -336,7 +336,7 @@ const addTeamMem = () => {
 }
 
   // this function determines if the employee is a manager, engineer, or intern and then adds the appropriate info to the html 
-  const addEmployee = (info, role) => {
+  const newPro = (info, role) => {
     return new Promise((resolve, reject) => {
             let newTemplate = '';
             const name = info.getName();
