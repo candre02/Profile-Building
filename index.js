@@ -5,6 +5,7 @@ const Manager = require("./lib/Manager.js");
 
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { result } = require("lodash");
 
 let profileArr = [];
 
@@ -86,7 +87,7 @@ const getInfo = () => {
                     addTeamMem();
                 } else {
                     console.log("Team is Finished!");
-                    
+                    finalHTML();
                 }
             })
 
@@ -286,7 +287,7 @@ const addTeamMem = () => {
             })
     }
 
-    // this function creates the initial html before adding the employee info
+    // this function creates the starter section of the html before adding the employee info
     function initialHTML() {
         const newTemplate = `<!DOCTYPE html>
     <html lang="en">
@@ -307,12 +308,12 @@ const addTeamMem = () => {
                 console.log(err);
             }
         });
-        console.log("Starter HTML created");
+        console.log("Starter end of HTML created");
     }
 
   
-    // adds the final html after the employee cards
-    // jquery and bootstrap js
+    // this function is the final section of the html
+   
     const finalHTML = () => {
         const newTemplate = `</div>
         </div>
@@ -326,7 +327,7 @@ const addTeamMem = () => {
                 console.log(err);
             };
         });
-        console.log("HTML Created!");
+        console.log("Final end of HTML Created!");
     }
 
     // these two functions get everything started 
@@ -405,3 +406,4 @@ const addTeamMem = () => {
             });
         })
 }
+
