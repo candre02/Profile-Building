@@ -54,15 +54,15 @@ const getInfo = () => {
         },
         {
             type: 'input',
-            name: 'phone',
-            message: "What is the team manager's phone number? (ex 512-888-4321)",
-            validate: (phoneInput) => {
+            name: 'officeNumber',
+            message: "What is the team manager's office number? (ex 512-888-4321)",
+            validate: (officeNumberInput) => {
                 var format = /\S+-\S+\-\S+/;
-                valid = format.test(phoneInput)
+                valid = format.test(officeNumberInput)
                 if (valid) {
                     return true;
                 } else {
-                    console.log("\n" + "Please eneter manager's phone number.");
+                    console.log("\n" + "Please eneter manager's office number.");
                     return false;
                 }
             }
@@ -76,21 +76,25 @@ const getInfo = () => {
     ])
         .then(response => {
             // creates a new manager object
-            const manager = new Manager(response.name, response.id, response.email, response.phone);
+            const manager = new Manager(response.name, response.id, response.email, response.officeNumber);
             profileArr.push(manager);
 
             let role = "Manager";
-            addEmployee(manager, role);
+            addEmployee(manager, role)
+            .then(result => {
+                if (response.addEmployee) {
+                    addTeamMem();
+                } else {
+                    console.log("Team is Finished!");
+                    
+                }
+            })
 
-            if (response.addEmployee) {
-                addTeamMem();
-            } else {
-                console.log("Team is Finished!");
-                finalHTML();
-            }
+           
         })
 }
 
+getInfo();
 // Asks if the user would like too add an intern or engineer then calls the appropriate function
 const addTeamMem = () => {
     inquirer.prompt([
@@ -185,14 +189,16 @@ const addTeamMem = () => {
                 console.log(profileArr);
 
                 let role = "Engineer";
-                addEmployee(engineer, role);
-
-                if (response.addEmployee) {
-                    addTeamMem();
-                } else {
-                    console.log("Your team is complete!")
-                    finalHTML();
-                }
+                addEmployee(engineer, role)
+                .then(result => {
+                    if (response.addEmployee) {
+                        addTeamMem();
+                    } else {
+                        console.log("Team is Finished!");
+                        finalHTML();
+                    }
+                })
+    
             })
 
     }
@@ -267,14 +273,16 @@ const addTeamMem = () => {
                 console.log(profileArr);
 
                 let role = "Intern";
-                addEmployee(intern, role);
-
-                if (response.addEmployee) {
-                    addTeamMem();
-                } else {
-                    console.log("Team is finsihed!");
-                    finalHTML();
-                }
+                addEmployee(intern, role)
+                .then(result => {
+                    if (response.addEmployee) {
+                        addTeamMem();
+                    } else {
+                        console.log("Team is Finished!");
+                        finalHTML();
+                    }
+                })
+    
             })
     }
 
@@ -293,7 +301,7 @@ const addTeamMem = () => {
         <span class="mb-4 mt-4 h2 w-100 text-dark text-center">Team Building</span>
     </nav>
     <div class="container">
-        <div class="row">`;
+        <div class="column">`;
         fs.writeFile("./dist/team.html", newTemplate, function (err) {
             if (err) {
                 console.log(err);
@@ -302,78 +310,7 @@ const addTeamMem = () => {
         console.log("Starter HTML created");
     }
 
-    // this function determines if the employee is a manager, engineer, or intern and then adds the appropriate info to the html 
-    const addEmployee = (info, role) => {
-        return new Promise((response, reject) => {
-                let newTemplate = '';
-                const name = info.getName();
-                const id = info.getId();
-                const email = info.getEmail();
-                if (role === 'Manager') {
-                    const phone = info.officeNumber();
-                    newTemplate = `<div class="col-4">
-                <div class="card mx-auto mb-4 shadow" style="width: 20rem">
-                    <div class="card-header bg-primary text-light">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><!--this is a briefcase emoji-->&#128188; Manager</h3>
-                    </div>
-                    <div class="card-body bg-light">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
-                            <li class="list-group-item">Office Number: ${phone}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>`;
-                } else if (role === 'Engineer') {
-                    const github = info.getGithub();
-                    newTemplate = `<div class="col-4">
-                <div class="card mx-auto mb-4 shadow" style="width: 20rem">
-                    <div class="card-header bg-primary text-light">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><!-- This is an laptop emoji -->&#128187; Engineer</h3>
-                    </div>
-                    <div class="card-body bg-light">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
-                            <li class="list-group-item">Github: <a href="http://github.com/${github}">${github}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>`;
-                } else if (role === 'Intern') {
-                    const school = info.getSchool();
-                    newTemplate = `<div class="col-4">
-                <div class="card mx-auto mb-4 shadow" style="width: 20rem">
-                    <div class="card-header bg-primary text-light">
-                        <h2 class="card-title">${name}</h2>
-                        <h3 class="card-title"><!-- This is a graduation cap emoji-->&#127891; Intern</h3>
-                    </div>
-                    <div class="card-body bg-light">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ID: ${id}</li>
-                            <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
-                            <li class="list-group-item">School: ${school}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>`;
-                }
-                fs.appendFile("./dist/team.html", newTemplate, function (err) {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-                    resolve({
-                        ok: true,
-                        message: 'Team member added!'
-                    });
-                });
-            })
-    }
-
+  
     // adds the final html after the employee cards
     // jquery and bootstrap js
     const finalHTML = () => {
@@ -394,5 +331,77 @@ const addTeamMem = () => {
 
     // these two functions get everything started 
     initialHTML();
-    getInfo();
+   
+}
+
+  // this function determines if the employee is a manager, engineer, or intern and then adds the appropriate info to the html 
+  const addEmployee = (info, role) => {
+    return new Promise((resolve, reject) => {
+            let newTemplate = '';
+            const name = info.getName();
+            const id = info.getId();
+            const email = info.getEmail();
+            if (role === 'Manager') {
+                const officeNumber = info.getOfficeNumber();
+                newTemplate = `<div class="col-4">
+            <div class="card mx-auto mb-4 shadow" style="width: 20rem">
+                <div class="card-header bg-primary text-light">
+                    <h2 class="card-title">${name}</h2>
+                    <h3 class="card-title"><!--this is a briefcase emoji-->&#128188; Manager</h3>
+                </div>
+                <div class="card-body bg-light">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
+                        <li class="list-group-item">Office Number: ${officeNumber}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>`;
+            } else if (role === 'Engineer') {
+                const github = info.getGithub();
+                newTemplate = `<div class="col-4">
+            <div class="card mx-auto mb-4 shadow" style="width: 20rem">
+                <div class="card-header bg-primary text-light">
+                    <h2 class="card-title">${name}</h2>
+                    <h3 class="card-title"><!-- This is an laptop emoji -->&#128187; Engineer</h3>
+                </div>
+                <div class="card-body bg-light">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
+                        <li class="list-group-item">Github: <a href="http://github.com/${github}">${github}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>`;
+            } else if (role === 'Intern') {
+                const school = info.getSchool();
+                newTemplate = `<div class="col-4">
+            <div class="card mx-auto mb-4 shadow" style="width: 20rem">
+                <div class="card-header bg-primary text-light">
+                    <h2 class="card-title">${name}</h2>
+                    <h3 class="card-title"><!-- This is a graduation cap emoji-->&#127891; Intern</h3>
+                </div>
+                <div class="card-body bg-light">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${id}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${email}">${email}</a></li>
+                        <li class="list-group-item">School: ${school}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>`;
+            }
+            fs.appendFile("./dist/team.html", newTemplate, function (err) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve({
+                    ok: true,
+                    message: 'Team member added!'
+                });
+            });
+        })
 }

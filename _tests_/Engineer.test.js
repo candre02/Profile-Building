@@ -1,8 +1,8 @@
 const Engineer = require('../lib/Engineer.js');
-const Employee = require('../lib/Employee.js');
 
 
-jest.mock('../lib/Employee.js');
+
+
 
 test('creates an engineer object', () => {
     const engineer = new Engineer();

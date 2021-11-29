@@ -1,8 +1,8 @@
-const Employee = require('../lib/Employee.js');
+
 const Manager = require('../lib/Manager.js');
 
 
-jest.mock('../lib/Employee.js');
+
 
 test('create an Manager object', () => {
     const manager = new Manager();
@@ -27,21 +27,21 @@ test('gets the id of the team manager from created object through the getId() fu
 test('gets the email of the manager from created object through the getEmail() function', () => {
     const email = 'JCB@google.com';
     const manager = new Manager('Jack', '56', email, '512-888-4321');
-
-    expect(manager.getEmail()).toBe('candre02.2@gmail.com');
+    
+    expect(manager.getEmail()).toBe('JCB@google.com');
 })
 
-test('get the office number of the manager from created object through the getOfficeNumber() function', () => {
-    const phone = '512-888-4321';
-    const manager = new Manager('Crystal', '02', 'candre02.2@gmail.com', phone);
-
-    expect(manager.getOfficeNumbder()).toBe('512-888-4321');
+test('get the office number of the manager from created object through the getofficeNumber() function', () => {
+    const officeNumber = '512-888-4321';
+    const manager = new Manager('Jack', '56', 'JCB@google.com', officeNumber);
+    console.log(manager.getOfficeNumber())
+    expect(manager.getOfficeNumber()).toBe('512-888-4321');
 })
 
 test('should return the name of the class "Manager" from the getRole() function', () => {
     const manager = new Manager('Crystal', '02', 'candre02.2@gmail.com', '512-888-4321');
 
-    expect(maanager.getRole()).toBe('Manager');
+    expect(manager.getRole()).toBe('Manager');
 })
 
 
