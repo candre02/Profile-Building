@@ -9,6 +9,30 @@ const { result } = require("lodash");
 
 let profileArr = [];
 
+  // this function creates the starter section of the html before adding the employee info
+  function initialHTML() {
+    const newTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" constent="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar bg-warning m-5">
+    <span class="mb-4 mt-4 h2 w-100 text-dark text-center">Team Building</span>
+</nav>
+<div class="container">
+    <div class="column">`;
+    fs.writeFile("./dist/team.html", newTemplate, function (err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    console.log("Starter end of HTML created");
+}
+
 // prompt the user to enter the manager info and calls the function to ask if they would like to add another employee
 const getInfo = () => {
     inquirer.prompt([
@@ -95,7 +119,6 @@ const getInfo = () => {
         })
 }
 
-getInfo();
 // Asks if the user would like too add an intern or engineer then calls the appropriate function
 const addTeamMem = () => {
     inquirer.prompt([
@@ -276,7 +299,9 @@ const addTeamMem = () => {
                 let role = "Intern";
                 newPro(intern, role)
                 .then(result => {
-                    if (response.addEmployee) {
+                    console.log(result)
+                    console.log(profileArr)
+                    if (response.addEmployee) {   
                         addTeamMem();
                     } else {
                         console.log("Team is Finished!");
@@ -287,29 +312,7 @@ const addTeamMem = () => {
             })
     }
 
-    // this function creates the starter section of the html before adding the employee info
-    function initialHTML() {
-        const newTemplate = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" constent="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    </head>
-    <body>
-    <nav class="navbar bg-warning m-5">
-        <span class="mb-4 mt-4 h2 w-100 text-dark text-center">Team Building</span>
-    </nav>
-    <div class="container">
-        <div class="column">`;
-        fs.writeFile("./dist/team.html", newTemplate, function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-        console.log("Starter end of HTML created");
-    }
+  
 
   
     // this function is the final section of the html
@@ -331,7 +334,7 @@ const addTeamMem = () => {
     }
 
     // these two functions get everything started 
-    initialHTML();
+
    
 }
 
@@ -404,6 +407,8 @@ const addTeamMem = () => {
                     message: 'Team member added!'
                 });
             });
+           
         })
 }
-
+initialHTML();
+getInfo();
