@@ -24,7 +24,7 @@ let profileArr = [];
     <span class="mb-4 mt-4 h2 w-100 text-dark text-center">Team Building</span>
 </nav>
 <div class="container">
-    <div class="column">`;
+    <div class="row">`;
     fs.writeFile("./dist/team.html", newTemplate, function (err) {
         if (err) {
             console.log(err);
