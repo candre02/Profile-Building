@@ -22,3 +22,4 @@ The user would need to use, npm test to check if all team member's run/ check of
 * E-mail: candre02.2@gmail.com
         
 # Images
+![Team-building](https://user-images.githubusercontent.com/81876258/145286570-b5b9dda9-3a53-4966-864d-bf02f9ba6a45.png)
