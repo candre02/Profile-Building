@@ -1,6 +1,6 @@
 # Profile-Building
 
-### Deployed Link
+### Deploy Back-end Link
 [Click Here!](https://watch.screencastify.com/v/Lny525iGpoOosjfPO8op)
 
 ### License
@@ -22,5 +22,5 @@ The user would need to use, npm test to check if all team member's run/ check of
 ![Team-building](https://user-images.githubusercontent.com/81876258/145286570-b5b9dda9-3a53-4966-864d-bf02f9ba6a45.png)
 
 ## Contact 
-* Github: cande02
-* E-mail: candre02.2@gmail.com
+* * [candre02](https://www.github.com/candre02)
+
